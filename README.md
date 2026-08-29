@@ -1,5 +1,8 @@
 # Hybrid RAG Pipeline
 
+> **Maturity:** Full Prototype
+> _A production-grade Retrieval-Augmented Generation system using hybrid retrieval._
+
 > **A production-grade Retrieval-Augmented Generation system using hybrid retrieval (dense vector + sparse keyword), Reciprocal Rank Fusion, and inline citation verification.**
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue?logo=typescript)](https://www.typescriptlang.org/)
@@ -108,12 +111,28 @@ curl -X POST http://localhost:3000/v1/query \
 }
 ```
 
+## Mock Boundaries (Honest Scope)
+
+| What | Status | Details |
+|---|---|---|
+| OpenAI API | **Optional** | Uses real `text-embedding-3-small` and GPT models when API key is provided; tests use mocks. |
+| ChromaDB | **Real** | Runs locally via Docker Compose for dense vector storage. |
+| BM25 Search | **Real** | Implemented in TypeScript for sparse keyword search. |
+
+## 📚 Documentation
+
+- [Architecture](docs/ARCHITECTURE.md) — System diagram and component details
+- [Runbook](docs/runbook.md) — Setup, commands, and expected outputs
+- [Decisions](docs/decisions.md) — ADRs for retrieval pattern choices
+- [Changelog](docs/changelog.md) — Change history
+
 ## 🧪 Tests
 
 ```bash
 npm test
 ```
 Tests cover the BM25 scoring logic and the Reciprocal Rank Fusion (RRF) combination logic.
+E2E Ingestion test available at `tests/e2e/test_ingestion_and_query.sh`.
 
 ## 👨‍💻 Author
 
