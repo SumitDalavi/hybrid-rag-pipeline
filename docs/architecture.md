@@ -1,40 +1,55 @@
-# Architecture: Hybrid RAG Pipeline
+# Architecture — hybrid-rag-pipeline
+> Last updated: 2026-08-29 | Maturity: Full Prototype
+> _Hybrid RAG system using Dense + Sparse retrieval with RRF._
 
 ## System Diagram
+The following Mermaid.js sequence diagram maps the core workflow and interactions:
 
 ```mermaid
-graph TD
-    A[Client Request] -->|Upload Document| B(Ingestion API)
-    B --> C{File Type Loader}
-    C -->|.txt/.md| D[Text Loader]
-    C -->|.pdf| E[PDF Parser]
-    C -->|.html| F[Cheerio HTML Scraper]
-    
-    D --> G[Chunking Strategies]
-    E --> G
-    F --> G
-    
-    G -->|Text Chunks| H(Indexing)
-    H -->|Dense| I[OpenAI Embeddings] --> J[(ChromaDB)]
-    H -->|Sparse| K[BM25 Indexer] --> L[(In-Memory BM25)]
-    
-    M[Client Query] --> N(Query API)
-    N --> O[Dense Retrieval]
-    O -->|Top 2K| J
-    N --> P[Sparse Retrieval]
-    P -->|Top 2K| L
-    
-    J --> Q[Vector Results]
-    L --> R[Keyword Results]
-    
-    Q --> S[Reciprocal Rank Fusion]
-    R --> S
-    
-    S -->|Top K Chunks| T[LLM Generation]
-    T -->|Prompt + Context + IDs| U[OpenAI gpt-4o-mini]
-    U --> V[Response with Inline Citations]
-    V --> W[Client Response]
+flowchart TD
+    App(["User Application"])
+    API["Express API"]
+    Embed["OpenAI Embeddings"]
+    Chroma[("ChromaDB (Dense)")]
+    BM25[("BM25 Index (Sparse)")]
+    RRF["Reciprocal Rank Fusion"]
+    LLM["LLM Generator"]
+
+    App -->|"POST /v1/query"| API
+    API -->|"Vectorize"| Embed
+    Embed --> API
+    API -->|"Top K"| Chroma
+    API -->|"Top K"| BM25
+    Chroma --> RRF
+    BM25 --> RRF
+    RRF -->|"Combined Context"| LLM
+    LLM -->|"Response + Citations"| API
+    API --> App
 ```
+
+## Component Table
+
+| Component | File | Responsibility | Tech |
+|---|---|---|---|
+| API Server | `src/server.ts` | Express server handling ingestion and queries | Node.js |
+| Retriever | `src/retrieval.ts` | Manages querying both DBs and executing RRF | TypeScript |
+| BM25 Engine | `src/bm25.ts` | In-memory inverted index for sparse search | TypeScript |
+| Vector DB | `src/chroma.ts` | Interface to ChromaDB | TypeScript |
+
+## Port Assignments
+
+| Service | Port | Notes |
+|---|---|---|
+| RAG API | `3000` | Main entrypoint |
+| ChromaDB | `8000` | Local vector store |
+
+## Dependency Honesty Table
+
+| Dependency | Status | Notes |
+|---|---|---|
+| OpenAI API | **Optional** | Requires key for real embeddings/generation. Simulated in test mode. |
+| ChromaDB | **Real** | Run locally via Docker Compose. |
+
 
 ## Core Components
 
