@@ -1,9 +1,9 @@
 # Hybrid RAG Pipeline
 
 > **Maturity:** Full Prototype
-> _A production-grade Retrieval-Augmented Generation system using hybrid retrieval._
+> _A robust Retrieval-Augmented Generation system using hybrid retrieval._
 
-> **A production-grade Retrieval-Augmented Generation system using hybrid retrieval (dense vector + sparse keyword), Reciprocal Rank Fusion, and inline citation verification.**
+> **A robust Retrieval-Augmented Generation system using hybrid retrieval (dense vector + sparse keyword), Reciprocal Rank Fusion, and inline citation verification.**
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-20-green?logo=nodedotjs)](https://nodejs.org/)
