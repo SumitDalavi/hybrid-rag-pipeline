@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-08-29T13:58:19.047Z",
+  "environment": {
+    "os": "win32",
+    "cpu": "x64",
+    "node_version": "v24.19.0"
+  },
+  "fixture": "1000 queries with simulated dense/sparse distributions",
+  "seed": 42,
+  "results": {
+    "ndcg_at_10": {
+      "dense": 0.8587,
+      "sparse": 0.8515,
+      "hybrid": 0.8431
+    },
+    "recall_at_10": {
+      "dense": 0.8227,
+      "sparse": 0.8157,
+      "hybrid": 0.8933
+    },
+    "fusion_latency_p50_ms": 0.005,
+    "fusion_latency_p99_ms": 0.019
+  },
+  "command": "bash benchmarks/run.sh",
+  "notes": "Local run testing Reciprocal Rank Fusion quality over synthetic candidate sets"
+}
