@@ -1,6 +1,10 @@
 # Hybrid RAG Pipeline
 
 [![Release](https://img.shields.io/github/v/release/SumitDalavi/hybrid-rag-pipeline?color=blue&logo=github)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
+[![Release Workflow](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/release.yml/badge.svg)](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/release.yml)
+[![SBOM](https://img.shields.io/badge/SBOM-SPDX%20JSON-blueviolet?logo=spdx)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
+
+[![Release](https://img.shields.io/github/v/release/SumitDalavi/hybrid-rag-pipeline?color=blue&logo=github)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
 [![SBOM](https://img.shields.io/badge/SBOM-SPDX%20JSON-blueviolet?logo=spdx)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
 
 ![CI](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/ci.yml/badge.svg?branch=master)
@@ -153,7 +157,7 @@ Tests rank math logic and matrix sorting edge cases.
 - **Specific Fix:** Added and configured robust GitHub Actions workflows for automated testing, linting, and formatting.
 - **Status:** 🟩 Passing
 
-## Release & Verification
+## Release & Security Verification
 
 The project includes an automated DevSecOps release pipeline (`.github/workflows/release.yml`) triggered on semantic version tags (`v*.*.*`).
 
@@ -173,3 +177,10 @@ gh release view v0.1.0 --repo SumitDalavi/hybrid-rag-pipeline
 gh release download v0.1.0 --repo SumitDalavi/hybrid-rag-pipeline --pattern "sbom.spdx.json"
 cat sbom.spdx.json | jq .
 ```
+
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Runbook](docs/runbook.md)
+- [Decisions](docs/decisions.md)
+- [Changelog](docs/changelog.md)
