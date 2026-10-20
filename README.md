@@ -1,23 +1,17 @@
 # Hybrid RAG Pipeline
 
-[![Release](https://img.shields.io/github/v/release/SumitDalavi/hybrid-rag-pipeline?color=blue&logo=github)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
+[![CI Pipeline](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/SumitDalavi/hybrid-rag-pipeline?color=0969da&label=release&logo=github)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
 [![Release Workflow](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/release.yml/badge.svg)](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/release.yml)
-[![SBOM](https://img.shields.io/badge/SBOM-SPDX%20JSON-blueviolet?logo=spdx)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
-
-[![Release](https://img.shields.io/github/v/release/SumitDalavi/hybrid-rag-pipeline?color=blue&logo=github)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
-[![SBOM](https://img.shields.io/badge/SBOM-SPDX%20JSON-blueviolet?logo=spdx)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases)
-
-![CI](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/ci.yml/badge.svg?branch=master)
+[![GHCR Container](https://img.shields.io/badge/ghcr.io-v0.2.0-blue?logo=docker&logoColor=white)](https://github.com/SumitDalavi/hybrid-rag-pipeline/pkgs/container/hybrid-rag-pipeline)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org)
+[![SBOM](https://img.shields.io/badge/SBOM-SPDX%202.3-blueviolet?logo=spdx)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases/tag/v0.2.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 > **Maturity:** Full Prototype
 > _A robust Retrieval-Augmented Generation system using hybrid retrieval._
 
 > **A robust Retrieval-Augmented Generation system using hybrid retrieval (dense vector + sparse keyword), Reciprocal Rank Fusion, and inline citation verification.**
-
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-20-green?logo=nodedotjs)](https://nodejs.org/)
-[![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector_Store-orange?logo=database)](https://www.trychroma.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 ---
 
@@ -82,7 +76,6 @@ cd hybrid-rag-pipeline
 cp .env.example .env
 # Add your OPENAI_API_KEY to .env
 
-![CI](https://github.com/SumitDalavi/hybrid-rag-pipeline/actions/workflows/ci.yml/badge.svg?branch=master)
 ```
 
 ### 2. Start the full stack
