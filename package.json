@@ -1,6 +1,6 @@
 {
   "name": "hybrid-rag-pipeline",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "main": "src/index.ts",
   "scripts": {
     "build": "tsc",
