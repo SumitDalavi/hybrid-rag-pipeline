@@ -1,9 +1,11 @@
 import OpenAI from 'openai';
 import { Chunk } from '../types';
 import { logger } from '../logger';
+import { isRealOpenAIKey } from '../shared/credential-mode';
+
 let _openai: OpenAI | null = null;
 function getOpenAI(): OpenAI {
-  if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || 'sk-dummy' });
   return _openai;
 }
 const LLM_MODEL = process.env.LLM_MODEL ?? 'gpt-4o-mini';
@@ -35,6 +37,14 @@ RULES:
 4. Synthesize information if it spans multiple chunks.
 
 ${contextText}`;
+
+  // Progressive Credential Loading: Mock mode if no valid OpenAI key
+  if (!isRealOpenAIKey(process.env.OPENAI_API_KEY)) {
+    const primary = contextChunks[0];
+    const mockAnswer = `[Mock Response] Based on ${primary.metadata.source} [ID: ${primary.id}]: ${primary.text.slice(0, 160)}... (Set OPENAI_API_KEY for live synthesis)`;
+    logger.info(`Answer generated in mock mode in ${Date.now() - startTime}ms`);
+    return mockAnswer;
+  }
 
   try {
     const response = await getOpenAI().chat.completions.create({

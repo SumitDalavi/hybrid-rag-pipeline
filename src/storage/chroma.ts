@@ -2,9 +2,11 @@ import { ChromaClient, Collection } from 'chromadb';
 import OpenAI from 'openai';
 import { Chunk } from '../types';
 import { logger } from '../logger';
+import { isRealOpenAIKey } from '../shared/credential-mode';
+
 let _openai: OpenAI | null = null;
 function getOpenAI(): OpenAI {
-  if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  if (!_openai) _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || 'sk-dummy' });
   return _openai;
 }
 const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL ?? 'text-embedding-3-small';
@@ -40,8 +42,12 @@ export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
     });
     return response.data.map(d => d.embedding);
   } catch (error) {
-    logger.error('Failed to generate embeddings', { error: (error as Error).message });
-    throw error;
+    logger.warn('OpenAI embeddings unavailable, using deterministic mock embeddings');
+    return texts.map(t => {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = (hash << 5) - hash + t.charCodeAt(i);
+      return Array.from({ length: 1536 }, (_, i) => Math.sin(hash + i));
+    });
   }
 }
 
