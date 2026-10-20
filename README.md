@@ -169,12 +169,6 @@ Tests rank math logic and matrix sorting edge cases.
 **Sumit Dalavi** — Senior DevSecOps / Platform Engineer  
 [GitHub](https://github.com/SumitDalavi) · [LinkedIn](https://in.linkedin.com/in/sumit-dalavi-762838129)
 
-## CI & Reliability Updates (August 2026)
-
-- **CI Pipeline Remediation:** Successfully resolved all CI/CD pipeline failures and established baseline CI workflows.
-- **Specific Fix:** Added and configured robust GitHub Actions workflows for automated testing, linting, and formatting.
-- **Status:** 🟩 Passing
-
 ## Release & Security Verification
 
 The project includes an automated DevSecOps release pipeline (`.github/workflows/release.yml`) triggered on semantic version tags (`v*.*.*`).
@@ -189,16 +183,9 @@ Each release automatically:
 ### Verifying the Release
 ```bash
 # Verify release via GitHub CLI
-gh release view v0.1.0 --repo SumitDalavi/hybrid-rag-pipeline
+gh release view v0.2.0 --repo SumitDalavi/hybrid-rag-pipeline
 
 # Download and inspect SBOM
-gh release download v0.1.0 --repo SumitDalavi/hybrid-rag-pipeline --pattern "sbom.spdx.json"
+gh release download v0.2.0 --repo SumitDalavi/hybrid-rag-pipeline --pattern "sbom.spdx.json"
 cat sbom.spdx.json | jq .
 ```
-
-## Documentation
-
-- [Architecture](docs/ARCHITECTURE.md)
-- [Runbook](docs/runbook.md)
-- [Decisions](docs/decisions.md)
-- [Changelog](docs/changelog.md)
