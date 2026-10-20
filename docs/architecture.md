@@ -73,3 +73,24 @@ By heavily prompting the model to reference these IDs using a specific format (e
 ## Trade-offs and Considerations
 1. **In-Memory BM25**: Currently, the BM25 store is in-memory. For a massive document corpus, this should be swapped with ElasticSearch or Meilisearch. However, for a lightweight, easily deployable RAG API handling thousands of documents, in-memory BM25 with Node.js V8 engine performance is sufficient.
 2. **Synchronous Embedding API Calls**: During ingestion, embeddings are requested synchronously. In a true enterprise-scale deployment, this would be offloaded to an asynchronous message queue (e.g., RabbitMQ/Celery or AWS SQS) to prevent HTTP timeouts on massive PDFs.
+
+## Progressive Credential Loading & Production Architecture (v0.2.0)
+
+This service implements the **Progressive Credential Loading (PCL)** pattern, decoupling development speed from external infrastructure provisioning:
+
+```mermaid
+graph LR
+    Env[Environment Credentials] -->|Detect Keys & URLs| Detector[Credential Detector]
+    Detector -->|No Credentials / Missing| Mock[Mock Mode Factory]
+    Detector -->|Valid Credentials Present| Live[Live Provider Factory]
+    Mock --> Runtime[Application Core & /health]
+    Live --> Runtime
+```
+
+### Core Architecture Components
+1. **Mode Detection Singleton:** Inspects environment configuration at boot time without hard crashes on missing secrets.
+2. **Dual-Mode Factory Wrappers:**
+   - **Storage / Cache:** In-process maps or SQLite `:memory:` transparently promote to managed Redis or PostgreSQL when connection strings are supplied.
+   - **AI Providers:** Deterministic heuristic generators and local embeddings transparently promote to live OpenAI, Anthropic, or Gemini API clients.
+3. **Hot-Reload & Dynamic TLS:** File watchers monitor mounted volume paths (Kubernetes ConfigMaps and Secrets) to update certificates and limit configs atomically without process restarts.
+4. **Health & Observability:** The `/health` endpoint exposes real-time runtime mode metadata (`mock` vs `live`) across all backing adapters.
