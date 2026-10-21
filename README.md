@@ -8,10 +8,7 @@
 [![SBOM](https://img.shields.io/badge/SBOM-SPDX%202.3-blueviolet?logo=spdx)](https://github.com/SumitDalavi/hybrid-rag-pipeline/releases/tag/v0.2.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-> **Maturity:** Full Prototype
-> _A robust Retrieval-Augmented Generation system using hybrid retrieval._
-
-> **A robust Retrieval-Augmented Generation system using hybrid retrieval (dense vector + sparse keyword), Reciprocal Rank Fusion, and inline citation verification.**
+> A robust Retrieval-Augmented Generation system using hybrid retrieval (dense vector + sparse keyword), Reciprocal Rank Fusion, and inline citation verification.
 
 ---
 
